@@ -1,9 +1,16 @@
 package com.shyptsolution.noteapp
 
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Adapter
 import android.widget.ListView
+import android.widget.SearchView
 
 class MainActivity: AppCompatActivity() {
     lateinit var adapter: NoteAdapter
@@ -19,4 +26,34 @@ class MainActivity: AppCompatActivity() {
 
 
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+//        menu=findViewById<Menu>(R.menu.main_menu)
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item!=null){
+            when(item.itemId){
+                R.id.addNote-> {
+                    var intent = Intent(this, AddNotes::class.java)
+                    this.startActivity(intent)
+                }
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.main_menu, menu)
+//        val sv=menu!!.findItem(R.id.app_bar_search).actionView as SearchView
+//        val sm=getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        sv.setSearchableInfo(sm.getSearchableInfo(componentName))
+//        return true
+//    }
 }
