@@ -11,6 +11,8 @@ import android.view.MenuItem
 import android.widget.Adapter
 import android.widget.ListView
 import android.widget.SearchView
+import android.widget.Toast
+import java.util.*
 
 class MainActivity: AppCompatActivity() {
     lateinit var adapter: NoteAdapter
@@ -27,6 +29,20 @@ class MainActivity: AppCompatActivity() {
 
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater:MenuInflater=menuInflater
+//        val searchview=menu?.findItem(R.id.app_bar_search)?.actionView as SearchView
+//        var searchmenu=getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        searchview.setSearchableInfo(searchmenu.getSearchableInfo(componentName))
+//        searchview.setOnQueryTextListener(  object:SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                Toast.makeText(applicationContext,query,Toast.LENGTH_LONG).show()
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                return false
+//            }
+//        })
 
 //        menu=findViewById<Menu>(R.menu.main_menu)
         menuInflater.inflate(R.menu.main_menu,menu)
@@ -37,7 +53,7 @@ class MainActivity: AppCompatActivity() {
         if(item!=null){
             when(item.itemId){
                 R.id.addNote-> {
-                    var intent = Intent(this, AddNotes::class.java)
+                    var intent = Intent(this, Login::class.java)
                     this.startActivity(intent)
                 }
             }
