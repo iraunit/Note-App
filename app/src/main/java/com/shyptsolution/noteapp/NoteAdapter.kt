@@ -37,4 +37,5 @@ class NoteAdapter(context: Context, listOfNotes:ArrayList<Note>):BaseAdapter(){
     }
 
 
+
 }
