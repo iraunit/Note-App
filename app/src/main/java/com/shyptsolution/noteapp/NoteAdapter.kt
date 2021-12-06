@@ -51,7 +51,7 @@ class NoteAdapter(context: Context, listOfNotes:ArrayList<Note>):BaseAdapter(){
                         if(title==noteList[position].noteName && descri==noteList[position].noteDes && noteid==noteList[position].noteId){
 //                            Toast.makeText(context,title+descri,Toast.LENGTH_LONG).show()
                             id=document.id
-                            Toast.makeText(context,id.toString(),Toast.LENGTH_LONG).show()
+                            Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
                             MainActivity().Delete(id.toString())
                             MainActivity().adapter.notifyDataSetChanged()
                             break

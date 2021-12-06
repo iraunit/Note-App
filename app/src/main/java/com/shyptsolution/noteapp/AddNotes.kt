@@ -1,5 +1,6 @@
 package com.shyptsolution.noteapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +45,9 @@ class AddNotes : AppCompatActivity() {
                 {
                     addNotes()
                 }
+                R.id.cancel ->{
+                    startActivity(Intent(this,MainActivity::class.java))
+                }
             }
 
         }
@@ -53,6 +57,7 @@ class AddNotes : AppCompatActivity() {
 
     private fun addNotes() {
         var currentUser = mAuth.currentUser?.email
+//        Toast.makeText(this,currentUser,Toast.LENGTH_LONG).show()
         // Create a new user with a first, middle, and last name
         var time =
             (Calendar.HOUR.toString() + Calendar.MINUTE.toString() + Calendar.SECOND.toString() + Calendar.MILLISECOND.toString()).toString()
@@ -91,12 +96,13 @@ class AddNotes : AppCompatActivity() {
                 .add(user)
                 .addOnSuccessListener { documentReference ->
                     Log.d("he", "DocumentSnapshot added with ID: ${documentReference}")
-                    Toast.makeText(this,"${documentReference}",Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this,"${documentReference}",Toast.LENGTH_LONG).show()
                 }
                 .addOnFailureListener { e ->
                     Log.w("TAG", "Error adding document", e)
                 }
             MainActivity().adapter.notifyDataSetChanged()
+            startActivity(Intent(this,MainActivity::class.java))
         }
 
     }

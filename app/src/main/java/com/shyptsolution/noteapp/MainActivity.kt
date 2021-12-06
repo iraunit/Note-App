@@ -17,6 +17,8 @@ import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -82,7 +84,10 @@ class MainActivity: AppCompatActivity() {
                         if(title!=null && descri!=null){
                             if(noteid!=null){
                                 if(title!="" || descri!=""){
-                                    DataService.listOfNotes.add(Note(noteid.toInt(),title,descri))
+                                    if(searching(noteid)){
+                                        DataService.listOfNotes.add(Note(noteid.toInt(),title,descri))
+
+                                    }
                                     }
 
 
@@ -138,6 +143,13 @@ class MainActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    fun searching(id: Int):Boolean{
+        for (list in DataService.listOfNotes){
+            if(list.noteId==id){
+                return false
+            }
+        }
+        return true
+    }
 
 }

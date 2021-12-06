@@ -14,7 +14,7 @@
                 >
 
             </stroke>
-            <corners android:radius="5pt"></corners
+            <corners android:radius="9pt"></corners
                 >
             <padding android:top="5pt"
                 android:bottom="5pt"
