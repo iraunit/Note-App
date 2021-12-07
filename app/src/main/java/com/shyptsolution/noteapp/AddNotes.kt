@@ -1,8 +1,12 @@
 package com.shyptsolution.noteapp
 
+import android.content.AsyncQueryHandler
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -12,9 +16,11 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.Executors
 
-class AddNotes : AppCompatActivity() {
+class AddNotes : BaseFragment()  {
     var mAuth=FirebaseAuth.getInstance()
     var db=FirebaseFirestore.getInstance()
     lateinit var noteTi:EditText
@@ -29,6 +35,8 @@ class AddNotes : AppCompatActivity() {
 //            addNotes()
 //
 //        }
+
+
     }
 
 
@@ -43,7 +51,10 @@ class AddNotes : AppCompatActivity() {
             when(item.itemId){
                 R.id.addnotes ->
                 {
-                    addNotes()
+//                    addNotes()
+                    addToDatabase()
+
+
                 }
                 R.id.cancel ->{
                     startActivity(Intent(this,MainActivity::class.java))
@@ -53,6 +64,25 @@ class AddNotes : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun addToDatabase() {
+        var time =
+            (Calendar.HOUR.toString() + Calendar.MINUTE.toString() + Calendar.SECOND.toString() + Calendar.MILLISECOND.toString()).toString()
+        var noteDes = noteD.text.toString()
+        var noteTitle = noteTi.text.toString()
+        val note=RoomEntity(time.toInt(),noteTitle,noteDes)
+        Toast.makeText(this@AddNotes,"Before Launch",Toast.LENGTH_LONG).show()
+
+        launch {
+            this@AddNotes.let {
+                NoteDatabase(it).getNoteDao().addNote(note)
+                Toast.makeText(it,"Saved to database",Toast.LENGTH_LONG).show()
+            }
+        }
+
+
+
     }
 
     private fun addNotes() {
